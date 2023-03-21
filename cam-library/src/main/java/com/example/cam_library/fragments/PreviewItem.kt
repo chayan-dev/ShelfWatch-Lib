@@ -1,4 +1,4 @@
-package com.shelfwatch_cam
+package com.example.cam_library.fragments
 
 import android.graphics.Bitmap
 import com.example.cam_library.R

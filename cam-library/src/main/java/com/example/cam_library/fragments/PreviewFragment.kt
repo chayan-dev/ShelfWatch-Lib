@@ -11,7 +11,6 @@ import androidx.lifecycle.lifecycleScope
 import com.example.cam_library.databinding.FragmentPreviewBinding
 import com.example.cam_library.models.CaptureImageModel
 import com.example.cam_library.viewmodels.CameraViewModel
-import com.shelfwatch_cam.PreviewItem
 import com.xwray.groupie.GroupieAdapter
 import kotlinx.coroutines.launch
 
