@@ -81,7 +81,7 @@ afterEvaluate {
 
                 groupId = 'com.github.chayan-dev'
                 artifactId = 'ShelfWatch-Cam-Library'
-                version = '0.1.1'
+                version = '0.1.2'
             }
         }
     }
