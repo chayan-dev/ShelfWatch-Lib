@@ -58,6 +58,8 @@ class CameraHomeFragment : Fragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
+    startCamera()
+
     val localBroadcastManager = LocalBroadcastManager.getInstance(requireContext())
     localBroadcastManager.registerReceiver(
       mLocalBroadcastReceiver,
@@ -93,9 +95,12 @@ class CameraHomeFragment : Fragment() {
               binding.leftArrowIv.visibility = View.VISIBLE
               binding.downArrowIv.visibility = View.VISIBLE
               binding.rightArrowIv.visibility = View.VISIBLE
-              binding.leftArrowIv.setImageResource(R.drawable.baseline_arrow_back_24)
-              binding.downArrowIv.setImageResource(R.drawable.baseline_arrow_downward_24)
-              binding.rightArrowIv.setImageResource(R.drawable.baseline_arrow_forward_24)
+              binding.leftArrowIv.setImageResource(R.drawable.img_13)
+              binding.downArrowIv.setImageResource(R.drawable.img_15)
+              binding.rightArrowIv.setImageResource(R.drawable.img_14)
+              binding.leftArrowIv.isEnabled = true
+              binding.rightArrowIv.isEnabled = true
+              binding.downArrowIv.isEnabled = true
 
             }
           }
@@ -111,19 +116,28 @@ class CameraHomeFragment : Fragment() {
               viewBinding?.leftArrowIv?.visibility = View.VISIBLE
               viewBinding?.leftArrowIv?.isEnabled = false
               viewBinding?.leftArrowIv?.setImageResource(R.drawable.img_9)
-            }else viewBinding?.leftArrowIv?.visibility = View.INVISIBLE
+            }else {
+              viewBinding?.leftArrowIv?.isEnabled = true
+              viewBinding?.leftArrowIv?.visibility = View.INVISIBLE
+            }
 
             if( it.showRightArrow ){
               viewBinding?.rightArrowIv?.visibility = View.VISIBLE
               viewBinding?.rightArrowIv?.isEnabled = false
               viewBinding?.rightArrowIv?.setImageResource(R.drawable.img_10)
-            }else viewBinding?.rightArrowIv?.visibility = View.INVISIBLE
+            }else {
+              viewBinding?.rightArrowIv?.isEnabled = true
+              viewBinding?.rightArrowIv?.visibility = View.INVISIBLE
+            }
 
             if( it.showDownArrow ){
               viewBinding?.downArrowIv?.visibility = View.VISIBLE
               viewBinding?.downArrowIv?.isEnabled = false
               viewBinding?.downArrowIv?.setImageResource(R.drawable.img_11)
-            }else viewBinding?.downArrowIv?.visibility = View.INVISIBLE
+            }else {
+              viewBinding?.downArrowIv?.isEnabled = true
+              viewBinding?.downArrowIv?.visibility = View.INVISIBLE
+            }
           }
 
           //images
@@ -160,13 +174,13 @@ class CameraHomeFragment : Fragment() {
     }
 
     // Request camera permissions
-    if (allPermissionsGranted()) {
-      startCamera()
-    } else {
-      requestPermissions(
-        REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS
-      )
-    }
+//    if (allPermissionsGranted()) {
+//      startCamera()
+//    } else {
+//      requestPermissions(
+//        REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS
+//      )
+//    }
 
     // Set up the listeners for take photo and video capture buttons
     viewBinding?.let {
@@ -186,7 +200,6 @@ class CameraHomeFragment : Fragment() {
 
     viewBinding?.previewBtn?.setOnClickListener {
 //      context?.let { it -> viewModel.broadcast(it) }
-
       findNavController().navigate(R.id.action_cameraHomeFragment_to_previewFragment)
     }
 
@@ -323,31 +336,31 @@ class CameraHomeFragment : Fragment() {
     }, ContextCompat.getMainExecutor(requireContext()))
   }
 
-  override fun onRequestPermissionsResult(
-    requestCode: Int,
-    permissions: Array<out String>,
-    grantResults: IntArray
-  ) {
-    super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    if (requestCode == REQUEST_CODE_PERMISSIONS) {
-      if (allPermissionsGranted()) {
-        startCamera()
-      } else {
-        Toast.makeText(
-          requireContext(),
-          "Permissions not granted by the user.",
-          Toast.LENGTH_SHORT
-        ).show()
-        activity?.finish()
-      }
-    }
-  }
+//  override fun onRequestPermissionsResult(
+//    requestCode: Int,
+//    permissions: Array<out String>,
+//    grantResults: IntArray
+//  ) {
+//    super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//    if (requestCode == REQUEST_CODE_PERMISSIONS) {
+//      if (allPermissionsGranted()) {
+//        startCamera()
+//      } else {
+//        Toast.makeText(
+//          requireContext(),
+//          "Permissions not granted by the user.",
+//          Toast.LENGTH_SHORT
+//        ).show()
+//        activity?.finish()
+//      }
+//    }
+//  }
 
-  private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
-    ContextCompat.checkSelfPermission(
-      requireContext(), it
-    ) == PackageManager.PERMISSION_GRANTED
-  }
+//  private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
+//    ContextCompat.checkSelfPermission(
+//      requireContext(), it
+//    ) == PackageManager.PERMISSION_GRANTED
+//  }
 
   private fun updateGuidelineConstraints(percent: Float){
     val constParam = viewBinding?.leftGuideline?.layoutParams as ConstraintLayout.LayoutParams
