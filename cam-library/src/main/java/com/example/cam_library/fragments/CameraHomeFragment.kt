@@ -164,12 +164,21 @@ class CameraHomeFragment : Fragment() {
             viewBinding?.deleteBtn?.visibility = View.INVISIBLE
             viewBinding?.previewBtn?.visibility = View.INVISIBLE
             viewBinding?.submitButton?.visibility = View.INVISIBLE
+            viewBinding?.uploadTv?.visibility = View.INVISIBLE
           }
           else {
             viewBinding?.deleteBtn?.visibility = View.VISIBLE
             viewBinding?.previewBtn?.visibility = View.VISIBLE
             viewBinding?.submitButton?.visibility = View.VISIBLE
+            viewBinding?.uploadTv?.visibility = View.VISIBLE
           }
+
+          viewModel.imageCapturedList.observe(
+            viewLifecycleOwner, androidx.lifecycle.Observer { imageModel->
+              if(viewModel.currentImageList.size>0)
+                viewBinding?.previewBtn?.setImageBitmap(imageModel.last().image)
+            }
+          )
         }
     }
 
@@ -219,6 +228,14 @@ class CameraHomeFragment : Fragment() {
       context?.let { it1 -> viewModel.bottomArrowClicked(it1) }
     }
 
+    viewBinding?.submitButton?.setOnClickListener {
+      //vm.submitimage()
+    }
+
+    viewBinding?.crossIv?.setOnClickListener {
+      activity?.onBackPressed()
+    }
+
     cameraExecutor = Executors.newSingleThreadExecutor()
   }
 
@@ -250,23 +267,23 @@ class CameraHomeFragment : Fragment() {
 
     // Set up image capture listener, which is triggered after photo has
     // been taken
-    if (outputOptions != null) {
-      imageCapture.takePicture(
-        outputOptions,
-        ContextCompat.getMainExecutor(requireContext()),
-        object : ImageCapture.OnImageSavedCallback {
-          override fun onError(exc: ImageCaptureException) {
-            Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
-          }
-
-          override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-            val msg = "Photo capture succeeded: ${output.savedUri}"
-            Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
-            Log.d(TAG, msg)
-          }
-        }
-      )
-    }
+//    if (outputOptions != null) {
+//      imageCapture.takePicture(
+//        outputOptions,
+//        ContextCompat.getMainExecutor(requireContext()),
+//        object : ImageCapture.OnImageSavedCallback {
+//          override fun onError(exc: ImageCaptureException) {
+//            Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
+//          }
+//
+//          override fun onImageSaved(output: ImageCapture.OutputFileResults) {
+//            val msg = "Photo capture succeeded: ${output.savedUri}"
+//            Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+//            Log.d(TAG, msg)
+//          }
+//        }
+//      )
+//    }
 
     imageCapture.takePicture(
       ContextCompat.getMainExecutor(requireContext()),

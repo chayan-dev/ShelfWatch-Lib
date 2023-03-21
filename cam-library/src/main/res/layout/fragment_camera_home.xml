@@ -3,6 +3,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
+  android:background="#000000"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
@@ -16,25 +17,29 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"/>
 
-  <Button
+  <ImageView
     android:id="@+id/image_capture_button"
-    android:layout_width="100dp"
+    android:layout_width="60dp"
     android:layout_height="60dp"
-    android:layout_marginBottom="50dp"
-    android:text="Click photo"
+    android:src="@drawable/white_solid_circle"
+    android:layout_marginBottom="16dp"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:clickable="true"
+    android:focusable="true"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent" />
+    app:layout_constraintStart_toStartOf="parent"
+    />
 
-  <Button
-    android:id="@+id/submit_button"
-    android:layout_width="80dp"
-    android:layout_height="60dp"
-    android:layout_marginBottom="50dp"
-    android:layout_marginEnd="20dp"
-    android:text="Submit"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent" />
+  <!--  <Button-->
+  <!--    android:id="@+id/submit_button"-->
+  <!--    android:layout_width="80dp"-->
+  <!--    android:layout_height="60dp"-->
+  <!--    android:layout_marginBottom="50dp"-->
+  <!--    android:layout_marginEnd="20dp"-->
+  <!--    android:text="Submit"-->
+  <!--    app:layout_constraintBottom_toBottomOf="parent"-->
+  <!--    app:layout_constraintEnd_toEndOf="parent" />-->
 
   <ImageView
     android:id="@+id/cross_iv"
@@ -45,15 +50,15 @@
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintEnd_toEndOf="parent"/>
 
-  <ImageView
-    android:id="@+id/flash_iv"
-    android:layout_width="30dp"
-    android:layout_height="30dp"
-    android:layout_margin="20dp"
-    android:src="@drawable/flash_auto"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"/>
+  <!--  <ImageView-->
+  <!--    android:id="@+id/flash_iv"-->
+  <!--    android:layout_width="30dp"-->
+  <!--    android:layout_height="30dp"-->
+  <!--    android:layout_margin="20dp"-->
+  <!--    android:src="@drawable/flash_auto"-->
+  <!--    app:layout_constraintTop_toTopOf="parent"-->
+  <!--    app:layout_constraintStart_toStartOf="parent"-->
+  <!--    app:layout_constraintEnd_toEndOf="parent"/>-->
 
 
 
@@ -76,24 +81,52 @@
         android:id="@+id/preview_btn"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_margin="50dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/hollow_circle_bg"
         android:scaleType="centerCrop"
-        android:src="@drawable/img"
+        tools:src="@drawable/img"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
       <ImageView
+        android:id="@+id/submit_button"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/orange_solid_circle"
+        android:layout_marginHorizontal="10dp"
+        android:src="@drawable/white_arrow_upward"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/upload_tv"
+        />
+
+      <TextView
+        android:id="@+id/upload_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingVertical="2dp"
+        android:paddingHorizontal="4dp"
+        android:text="Submit"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:background="@drawable/rect_circular_orange"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/submit_button"
+        app:layout_constraintEnd_toEndOf="@id/submit_button"/>
+
+      <ImageView
         android:id="@+id/delete_btn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="40dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="12dp"
         android:padding="5dp"
-        android:layout_marginBottom="120dp"
         android:scaleType="centerCrop"
         android:src="@drawable/img_12"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toTopOf="@id/submit_button"
+        app:layout_constraintEnd_toEndOf="@id/submit_button"
+        app:layout_constraintStart_toStartOf="@id/submit_button"/>
 
       <ImageView
         android:id="@+id/captured_img_left"
@@ -110,10 +143,12 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@drawable/img_13"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
         android:visibility="invisible"
         app:layout_constraintTop_toTopOf="@id/top_arrow_guideline"
         app:layout_constraintEnd_toEndOf="@id/left_arrow_guideline"
-        />
+        android:focusable="true" />
 
       <androidx.constraintlayout.widget.Guideline
         android:id="@+id/left_arrow_guideline"
@@ -144,11 +179,13 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@drawable/img_15"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/down_arrow_guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        android:focusable="true" />
 
       <androidx.constraintlayout.widget.Guideline
         android:id="@+id/down_arrow_guideline"
@@ -186,10 +223,12 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@drawable/img_14"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
         android:visibility="invisible"
         app:layout_constraintTop_toTopOf="@id/top_arrow_guideline"
         app:layout_constraintStart_toStartOf="@id/right_arrow_guideline"
-        />
+        android:focusable="true" />
 
       <androidx.constraintlayout.widget.Guideline
         android:id="@+id/right_arrow_guideline"

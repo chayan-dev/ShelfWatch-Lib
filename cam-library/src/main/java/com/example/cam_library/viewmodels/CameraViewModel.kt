@@ -133,6 +133,10 @@ class CameraViewModel : ViewModel()  {
 //      var leftMap = currentData["left"] as Map<String, String>
 
       //
+      Log.d("overlay_map:  left :",  currentData["left"].toString())
+      Log.d("overlay_map: right :",  currentData["right"].toString())
+      Log.d("overlay_map: top :",  currentData["top"].toString())
+
       var leftValue = currentData["left"]
       var leftMap: Map<String, String>
       if(leftValue!= null) {
@@ -142,7 +146,7 @@ class CameraViewModel : ViewModel()  {
       ////
       val leftString = leftMap["index"]
       val leftIndex = leftString?.toInt()
-      if (leftString != null) {
+      if (leftValue != null && leftString != null) {
         if (leftString.isNotEmpty()) {
           try{
             val leftImg = currentImageList.first { it.index == leftIndex }
@@ -164,6 +168,13 @@ class CameraViewModel : ViewModel()  {
               leftOverlayImage = null
             )
           }
+        }
+      }
+      else{
+        _uiState.update { state ->
+          state.copy(
+            leftOverlayImage = null
+          )
         }
       }
     } catch ( e: ClassCastException){
@@ -189,7 +200,7 @@ class CameraViewModel : ViewModel()  {
       Log.d("rightMap", rightMap.toString())
       val rightString = rightMap["index"]
       val rightIndex = rightString?.toInt()
-      if (rightString != null) {
+      if (rightValue != null && rightString != null) {
         if (rightString.isNotEmpty()) {
           try{
             currentImageList.forEach {
@@ -219,6 +230,13 @@ class CameraViewModel : ViewModel()  {
           }
         }
       }
+      else {
+        _uiState.update { state ->
+          state.copy(
+            rightOverlayImage = null
+          )
+        }
+      }
     } catch ( e: ClassCastException){
       Log.d("state_livedata","rightoverlay excption")
       _uiState.update { state ->
@@ -240,7 +258,7 @@ class CameraViewModel : ViewModel()  {
       ////
       val topString = topMap["index"]
       val topIndex = topString?.toInt()
-      if (topString != null) {
+      if (topValue  != null && topString != null) {
         if (topString.isNotEmpty()) {
           try{
             val topImg = currentImageList.first { it.index == topIndex }
@@ -264,6 +282,13 @@ class CameraViewModel : ViewModel()  {
               topOverlayImage = null
             )
           }
+        }
+      }
+      else {
+        _uiState.update { state ->
+          state.copy(
+            topOverlayImage = null
+          )
         }
       }
     } catch ( e: ClassCastException){
@@ -350,6 +375,15 @@ class CameraViewModel : ViewModel()  {
     sendingData["state"] = currentData
     sendingData["image_base64"] = base64_img
     broadcast(context, sendingData,"JS-Event")
+  }
+
+  fun submitImagesData(context: Context){
+    val submitMap = hashMapOf<String,Any>()
+    submitMap["state"] = currentData
+//    submitMap["results"] = currentData
+//    submitMap["mode"] = currentData
+//    submitMap["upload_params"] = currentData
+    broadcast(context, submitMap,"SubmitImageEvent")
   }
 
   fun broadcast(

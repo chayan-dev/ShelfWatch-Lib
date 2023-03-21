@@ -31,7 +31,10 @@ class PreviewFragment : Fragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    binding?.exitBtn?.setOnClickListener { activity?.onBackPressed() }
+    binding?.exitBtn?.setOnClickListener {
+//      fragmentManager?.popBackStack()
+      activity?.onBackPressed()
+    }
 
     val adapter = GroupieAdapter()
     binding?.previewImgRv?.adapter = adapter
